@@ -11,7 +11,7 @@ flutter:
     implements: shake_gesture
     platforms:
       android:
-        package: 
+        package: shake_gesture_android
         pluginClass: ShakeGesturePlugin
         dartPluginClass: ShakeGestureAndroid
 
