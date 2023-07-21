@@ -1,0 +1,27 @@
+name: shake_gesture_ios
+description: iOS implementation of the shake_gesture plugin
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+flutter:
+  plugin:
+    implements: shake_gesture
+    platforms:
+      ios:
+        pluginClass: ShakeGesturePlugin
+        dartPluginClass: ShakeGestureIOS
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shake_gesture_platform_interface:
+    path: ../shake_gesture_platform_interface
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.0
+  very_good_analysis: ^5.0.0

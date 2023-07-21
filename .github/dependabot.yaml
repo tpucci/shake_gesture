@@ -1,0 +1,27 @@
+version: 2
+enable-beta-ecosystems: true
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/shake_gesture"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/shake_gesture/example"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/shake_gesture_platform_interface"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/shake_gesture_android"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/shake_gesture_ios"
+    schedule:
+      interval: "daily"
