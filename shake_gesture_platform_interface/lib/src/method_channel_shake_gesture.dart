@@ -7,9 +7,4 @@ class MethodChannelShakeGesture extends ShakeGesturePlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   final methodChannel = const MethodChannel('shake_gesture');
-
-  @override
-  Future<String?> getPlatformName() {
-    return methodChannel.invokeMethod<String>('getPlatformName');
-  }
 }

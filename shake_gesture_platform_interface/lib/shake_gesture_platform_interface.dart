@@ -28,6 +28,5 @@ abstract class ShakeGesturePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  /// Return the current platform name.
-  Future<String?> getPlatformName();
+  /// TODO: add a method to register a callback on shake event
 }

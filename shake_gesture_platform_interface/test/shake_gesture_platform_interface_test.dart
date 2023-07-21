@@ -3,9 +3,6 @@ import 'package:shake_gesture_platform_interface/shake_gesture_platform_interfac
 
 class ShakeGestureMock extends ShakeGesturePlatform {
   static const mockPlatformName = 'Mock';
-
-  @override
-  Future<String?> getPlatformName() async => mockPlatformName;
 }
 
 void main() {
@@ -16,15 +13,6 @@ void main() {
     setUp(() {
       shakeGesturePlatform = ShakeGestureMock();
       ShakeGesturePlatform.instance = shakeGesturePlatform;
-    });
-
-    group('getPlatformName', () {
-      test('returns correct name', () async {
-        expect(
-          await ShakeGesturePlatform.instance.getPlatformName(),
-          equals(ShakeGestureMock.mockPlatformName),
-        );
-      });
     });
   });
 }

@@ -18,27 +18,5 @@ void main() {
       shakeGesturePlatform = MockShakeGesturePlatform();
       ShakeGesturePlatform.instance = shakeGesturePlatform;
     });
-
-    group('getPlatformName', () {
-      test('returns correct name when platform implementation exists',
-          () async {
-        const platformName = '__test_platform__';
-        when(
-          () => shakeGesturePlatform.getPlatformName(),
-        ).thenAnswer((_) async => platformName);
-
-        final actualPlatformName = await getPlatformName();
-        expect(actualPlatformName, equals(platformName));
-      });
-
-      test('throws exception when platform implementation is missing',
-          () async {
-        when(
-          () => shakeGesturePlatform.getPlatformName(),
-        ).thenAnswer((_) async => null);
-
-        expect(getPlatformName, throwsException);
-      });
-    });
   });
 }

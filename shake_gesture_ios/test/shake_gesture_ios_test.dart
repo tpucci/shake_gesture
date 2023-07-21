@@ -7,7 +7,6 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('ShakeGestureIOS', () {
-    const kPlatformName = 'iOS';
     late ShakeGestureIOS shakeGesture;
     late List<MethodCall> log;
 
@@ -15,30 +14,11 @@ void main() {
       shakeGesture = ShakeGestureIOS();
 
       log = <MethodCall>[];
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-          .setMockMethodCallHandler(shakeGesture.methodChannel, (methodCall) async {
-        log.add(methodCall);
-        switch (methodCall.method) {
-          case 'getPlatformName':
-            return kPlatformName;
-          default:
-            return null;
-        }
-      });
     });
 
     test('can be registered', () {
       ShakeGestureIOS.registerWith();
       expect(ShakeGesturePlatform.instance, isA<ShakeGestureIOS>());
-    });
-
-    test('getPlatformName returns correct name', () async {
-      final name = await shakeGesture.getPlatformName();
-      expect(
-        log,
-        <Matcher>[isMethodCall('getPlatformName', arguments: null)],
-      );
-      expect(name, equals(kPlatformName));
     });
   });
 }

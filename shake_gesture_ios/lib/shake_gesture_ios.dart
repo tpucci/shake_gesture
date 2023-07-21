@@ -12,9 +12,4 @@ class ShakeGestureIOS extends ShakeGesturePlatform {
   static void registerWith() {
     ShakeGesturePlatform.instance = ShakeGestureIOS();
   }
-
-  @override
-  Future<String?> getPlatformName() {
-    return methodChannel.invokeMethod<String>('getPlatformName');
-  }
 }
