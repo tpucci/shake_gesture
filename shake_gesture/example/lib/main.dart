@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shake_gesture/shake_gesture.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,13 +11,32 @@ class MyApp extends StatelessWidget {
         print('Shake detected!');
       }
     });
+    // RawKeyboard.instance.addListener(_handleRawKeyEvent);
   }
 
-  static const platform = MethodChannel('shake_gesture_ios');
+  static const platform = MethodChannel('shake_gesture');
+
+  KeyEventResult _handleRawKeyEvent(RawKeyEvent event) {
+    final data = event.data;
+    if (data is RawKeyEventDataAndroid && event is RawKeyDownEvent) {
+      if (data.keyCode == 82) {
+        print("Yahoo");
+        return KeyEventResult.handled;
+      }
+    }
+    return KeyEventResult.ignored;
+  }
+
+  final _focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
+    FocusScope.of(context).requestFocus(_focusNode);
+    return RawKeyboardListener(
+      focusNode: _focusNode,
+      onKey: _handleRawKeyEvent,
+      child: const MaterialApp(home: HomePage()),
+    );
   }
 }
 
@@ -34,10 +52,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('ShakeGesture Example')),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [],
+          children: [
+            const TextField(),
+            OutlinedButton(onPressed: () {}, child: Text("Hello"))
+          ],
         ),
       ),
     );

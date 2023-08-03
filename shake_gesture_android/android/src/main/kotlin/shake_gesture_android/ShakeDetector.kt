@@ -5,17 +5,11 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import kotlin.math.sqrt
+import android.util.Log
+import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 class ShakeDetector(context: Context, private val listener: OnShakeListener) : SensorEventListener {
-
-    // Minimum shake force to register as a shake event
-    private val MIN_SHAKE_FORCE = 5.0f
-
-    // Time threshold between two shake events (in milliseconds)
-    private val SHAKE_TIME_THRESHOLD = 500
-
-    private var lastShakeTime: Long = 0
 
     private var sensorManager: SensorManager? = null
     private var accelerometer: Sensor? = null
@@ -41,22 +35,86 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
         // Not used
     }
 
-    override fun onSensorChanged(event: SensorEvent) {
-        val now = System.currentTimeMillis()
+    // Collect sensor data in this interval (nanoseconds)
+    private val MIN_TIME_BETWEEN_SAMPLES_NS =
+        TimeUnit.NANOSECONDS.convert(20, TimeUnit.MILLISECONDS)
 
-        if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
-            val x = event.values[0]
-            val y = event.values[1]
-            val z = event.values[2]
+    // Number of nanoseconds to listen for and count shakes (nanoseconds)
+    private val SHAKING_WINDOW_NS = TimeUnit.NANOSECONDS.convert(3, TimeUnit.SECONDS)
 
-            val acceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+    // Required force to constitute a rage shake. Need to multiply gravity by 1.33 because a rage
+    // shake in one direction should have more force than just the magnitude of free fall.
+    private val REQUIRED_FORCE = SensorManager.GRAVITY_EARTH * 1.33f
 
-            if (acceleration > MIN_SHAKE_FORCE) {
-                if (now - lastShakeTime >= SHAKE_TIME_THRESHOLD) {
-                    lastShakeTime = now
-                    listener.onShake()
-                }
-            }
+    private var mAccelerationX = 0f
+    private  var mAccelerationY = 0f
+    private  var mAccelerationZ = 0f
+
+    private var mLastTimestamp: Long = 0
+    private var mNumShakes = 0
+    private var mLastShakeTimestamp: Long = 0
+
+    // number of shakes required to trigger onShake()
+    private val mMinNumShakes = 1
+
+    /** Reset all variables used to keep track of number of shakes recorded.  */
+    private fun reset() {
+        mNumShakes = 0
+        mAccelerationX = 0f
+        mAccelerationY = 0f
+        mAccelerationZ = 0f
+    }
+
+    /**
+     * Determine if acceleration applied to sensor is large enough to count as a rage shake.
+     *
+     * @param a acceleration in x, y, or z applied to the sensor
+     * @return true if the magnitude of the force exceeds the minimum required amount of force. false
+     * otherwise.
+     */
+    private fun atLeastRequiredForce(a: Float): Boolean {
+        return abs(a) > REQUIRED_FORCE
+    }
+
+    /**
+     * Save data about last shake
+     *
+     * @param timestamp (ns) of last sensor event
+     */
+    private fun recordShake(timestamp: Long) {
+        mLastShakeTimestamp = timestamp
+        mNumShakes++
+    }
+
+    override fun onSensorChanged(sensorEvent: SensorEvent) {
+        if (sensorEvent.timestamp - mLastTimestamp < MIN_TIME_BETWEEN_SAMPLES_NS) {
+            return
+        }
+        val ax = sensorEvent.values[0]
+        val ay = sensorEvent.values[1]
+        val az = sensorEvent.values[2] - SensorManager.GRAVITY_EARTH
+
+        mLastTimestamp = sensorEvent.timestamp
+        if (atLeastRequiredForce(ax) && ax * mAccelerationX <= 0) {
+            recordShake(sensorEvent.timestamp)
+            mAccelerationX = ax
+        } else if (atLeastRequiredForce(ay) && ay * mAccelerationY <= 0) {
+            recordShake(sensorEvent.timestamp)
+            mAccelerationY = ay
+        } else if (atLeastRequiredForce(az) && az * mAccelerationZ <= 0) {
+            recordShake(sensorEvent.timestamp)
+            mAccelerationZ = az
+        }
+        maybeDispatchShake(sensorEvent.timestamp)
+    }
+
+    private fun maybeDispatchShake(currentTimestamp: Long) {
+        if (mNumShakes >= 6 * mMinNumShakes) {
+            reset()
+            listener.onShake()
+        }
+        if (currentTimestamp - mLastShakeTimestamp > SHAKING_WINDOW_NS) {
+            reset()
         }
     }
 }

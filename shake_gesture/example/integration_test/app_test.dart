@@ -25,4 +25,3 @@ String expectedPlatformName() {
   if (Platform.isIOS) return 'iOS';
   throw UnsupportedError('Unsupported platform ${Platform.operatingSystem}');
 }
-

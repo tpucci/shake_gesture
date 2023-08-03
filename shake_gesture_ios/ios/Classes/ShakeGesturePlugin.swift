@@ -3,7 +3,7 @@ import UIKit
 
 public class ShakeGesturePlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "shake_gesture_ios", binaryMessenger: registrar.messenger())
+        let channel = FlutterMethodChannel(name: "shake_gesture", binaryMessenger: registrar.messenger())
         let instance = ShakeGesturePlugin(methodChannel: channel)
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
