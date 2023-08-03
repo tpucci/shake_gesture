@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:shake_gesture_platform_interface/src/method_channel_shake_gesture.dart';
 
@@ -30,10 +29,23 @@ abstract class ShakeGesturePlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  final _callbackRegistry = <VoidCallback>{};
+
   /// Registers a callback that will be called when a shake gesture is detected.
-  void registerCallback({required VoidCallback onShake}) {}
+  void registerCallback({required VoidCallback onShake}) {
+    _callbackRegistry.add(onShake);
+  }
 
   /// Unregisters a callback that will be called when
   /// a shake gesture is detected.
-  void unregisterCallback({required VoidCallback onShake}) {}
+  void unregisterCallback({required VoidCallback onShake}) {
+    _callbackRegistry.remove(onShake);
+  }
+
+  /// Called when a shake gesture is detected.
+  void onShake() {
+    for (final callback in _callbackRegistry) {
+      callback();
+    }
+  }
 }

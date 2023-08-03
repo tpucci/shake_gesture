@@ -3,8 +3,6 @@ import 'package:shake_gesture_platform_interface/shake_gesture_platform_interfac
 
 /// The iOS implementation of [ShakeGesturePlatform].
 class ShakeGestureIOS extends ShakeGesturePlatform {
-  final _callbackRegistry = <VoidCallback>{};
-
   /// The method channel used to interact with the native platform.
   final methodChannel = const MethodChannel('shake_gesture');
 
@@ -19,16 +17,10 @@ class ShakeGestureIOS extends ShakeGesturePlatform {
     methodChannel.setMethodCallHandler((MethodCall call) async {
       switch (call.method) {
         case 'onShake':
-          _onShake();
+          onShake();
       }
     });
     _initialized = true;
-  }
-
-  void _onShake() {
-    for (final callback in _callbackRegistry) {
-      callback();
-    }
   }
 
   @override
@@ -36,11 +28,6 @@ class ShakeGestureIOS extends ShakeGesturePlatform {
     if (!_initialized) {
       _init();
     }
-    _callbackRegistry.add(onShake);
-  }
-
-  @override
-  void unregisterCallback({required VoidCallback onShake}) {
-    _callbackRegistry.remove(onShake);
+    super.registerCallback(onShake: onShake);
   }
 }

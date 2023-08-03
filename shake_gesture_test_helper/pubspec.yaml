@@ -19,6 +19,8 @@ dependencies:
     path: ../shake_gesture_android
   shake_gesture_ios:
     path: ../shake_gesture_ios
+  shake_gesture_platform_interface:
+    path: ../shake_gesture_platform_interface
 
 dev_dependencies:
   flutter_lints: ^2.0.0
