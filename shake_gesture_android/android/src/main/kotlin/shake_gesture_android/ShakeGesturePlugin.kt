@@ -20,7 +20,10 @@ class ShakeGesturePlugin: FlutterPlugin, MethodCallHandler, ShakeDetector.OnShak
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
     /// when the Flutter Engine is detached from the Activity
     private lateinit var channel : MethodChannel
-    private lateinit var shakeDetector: ShakeDetector
+
+    companion object {
+        var shakeDetector: ShakeDetector? = null
+    }
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "shake_gesture")
@@ -36,23 +39,23 @@ class ShakeGesturePlugin: FlutterPlugin, MethodCallHandler, ShakeDetector.OnShak
     }
 
     override fun onShake() {
-        channel.invokeMethod("shake_event", null)
+        channel.invokeMethod("onShake", null)
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         shakeDetector = ShakeDetector(binding.activity, this)
-        shakeDetector.start()
+        shakeDetector?.start()
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
-        shakeDetector.stop()
+        shakeDetector?.stop()
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        shakeDetector.start()
+        shakeDetector?.start()
     }
 
     override fun onDetachedFromActivity() {
-        shakeDetector.stop()
+        shakeDetector?.stop()
     }
 }

@@ -92,20 +92,24 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
         }
         val ax = sensorEvent.values[0]
         val ay = sensorEvent.values[1]
-        val az = sensorEvent.values[2] - SensorManager.GRAVITY_EARTH
+        val az = sensorEvent.values[2]
 
         mLastTimestamp = sensorEvent.timestamp
+        processAccelerationData(ax, ay, az)
+    }
+
+    fun processAccelerationData(ax: Float, ay: Float, az: Float) {
         if (atLeastRequiredForce(ax) && ax * mAccelerationX <= 0) {
-            recordShake(sensorEvent.timestamp)
+            recordShake(mLastTimestamp)
             mAccelerationX = ax
         } else if (atLeastRequiredForce(ay) && ay * mAccelerationY <= 0) {
-            recordShake(sensorEvent.timestamp)
+            recordShake(mLastTimestamp)
             mAccelerationY = ay
         } else if (atLeastRequiredForce(az) && az * mAccelerationZ <= 0) {
-            recordShake(sensorEvent.timestamp)
+            recordShake(mLastTimestamp)
             mAccelerationZ = az
         }
-        maybeDispatchShake(sensorEvent.timestamp)
+        maybeDispatchShake(mLastTimestamp)
     }
 
     private fun maybeDispatchShake(currentTimestamp: Long) {
