@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:shake_gesture_platform_interface/src/method_channel_shake_gesture.dart';
 
@@ -7,7 +9,7 @@ import 'package:shake_gesture_platform_interface/src/method_channel_shake_gestur
 /// rather than implement it as `ShakeGesture`.
 /// Extending this class (using `extends`) ensures that the subclass will get
 /// the default implementation, while platform implementations that `implements`
-///  this interface will be broken by newly added [ShakeGesturePlatform] methods.
+/// this interface will be broken by newly added [ShakeGesturePlatform] methods.
 abstract class ShakeGesturePlatform extends PlatformInterface {
   /// Constructs a ShakeGesturePlatform.
   ShakeGesturePlatform() : super(token: _token);
@@ -28,5 +30,10 @@ abstract class ShakeGesturePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  /// TODO: add a method to register a callback on shake event
+  /// Registers a callback that will be called when a shake gesture is detected.
+  void registerCallback({required VoidCallback onShake}) {}
+
+  /// Unregisters a callback that will be called when
+  /// a shake gesture is detected.
+  void unregisterCallback({required VoidCallback onShake}) {}
 }

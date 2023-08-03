@@ -23,7 +23,7 @@ public class ShakeGesturePlugin: NSObject, FlutterPlugin {
             if let appDelegate = UIApplication.shared.delegate, let window = appDelegate.window {
                 if (window == eventData) {
                     DispatchQueue.main.async {
-                        self.channel.invokeMethod("shake_event", arguments: nil)
+                        self.channel.invokeMethod("onShake", arguments: nil)
                     }
                 }
             }

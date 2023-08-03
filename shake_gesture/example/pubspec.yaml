@@ -16,10 +16,10 @@ dependencies:
     # The example app is bundled with the plugin so we use a path dependency on
     # the parent directory to use the current plugin's version.
     path: ../
+  shake_gesture_test_helper:
+    path: ../../shake_gesture_test_helper
 
 dev_dependencies:
-  flutter_driver:
-    sdk: flutter
   flutter_test:
     sdk: flutter
   integration_test:
