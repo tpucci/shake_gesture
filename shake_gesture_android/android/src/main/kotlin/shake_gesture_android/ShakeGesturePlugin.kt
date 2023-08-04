@@ -5,16 +5,20 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.embedding.engine.plugins.lifecycle.HiddenLifecycleReference
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
 
-class ShakeGesturePlugin: FlutterPlugin, MethodCallHandler, ShakeDetector.OnShakeListener, ActivityAware {
+class ShakeGesturePlugin: FlutterPlugin, MethodCallHandler, ShakeDetector.OnShakeListener, ActivityAware, DefaultLifecycleObserver {
     /// The MethodChannel that will the communication between Flutter and native Android
     ///
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
@@ -44,6 +48,20 @@ class ShakeGesturePlugin: FlutterPlugin, MethodCallHandler, ShakeDetector.OnShak
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         shakeDetector = ShakeDetector(binding.activity, this)
+        shakeDetector?.start()
+        if (binding.lifecycle is HiddenLifecycleReference) {
+            val hiddenLifecycleReference = binding.lifecycle as HiddenLifecycleReference
+            hiddenLifecycleReference.lifecycle.addObserver(this)
+        }
+    }
+
+    override fun onPause(owner: LifecycleOwner) {
+        super.onPause(owner)
+        shakeDetector?.stop()
+    }
+
+    override fun onResume(owner: LifecycleOwner) {
+        super.onResume(owner)
         shakeDetector?.start()
     }
 

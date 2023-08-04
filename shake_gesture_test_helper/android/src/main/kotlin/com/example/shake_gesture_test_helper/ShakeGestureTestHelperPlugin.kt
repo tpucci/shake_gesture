@@ -8,6 +8,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import shake_gesture_android.ShakeDetector
 
 import shake_gesture_android.ShakeGesturePlugin
 
@@ -18,8 +19,6 @@ class ShakeGestureTestHelperPlugin : FlutterPlugin, MethodCallHandler {
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
     /// when the Flutter Engine is detached from the Activity
     private lateinit var channel: MethodChannel
-
-    private val RAGE_SHAKE = SensorManager.GRAVITY_EARTH * 1.5f
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "shake_gesture_test_helper")
@@ -43,7 +42,7 @@ class ShakeGestureTestHelperPlugin : FlutterPlugin, MethodCallHandler {
         ShakeGesturePlugin.shakeDetector?.let { shakeDetector ->
             for (i in 1..6) {
                 val direction = if (i % 2 == 0) 1 else -1
-                shakeDetector.processAccelerationData(direction * RAGE_SHAKE, 0f, 0f)
+                shakeDetector.processAccelerationData(direction * 8f, SensorManager.GRAVITY_EARTH, 0f)
             }
         }
     }

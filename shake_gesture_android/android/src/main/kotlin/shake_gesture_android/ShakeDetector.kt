@@ -5,9 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.util.Log
 import java.util.concurrent.TimeUnit
-import kotlin.math.abs
 
 class ShakeDetector(context: Context, private val listener: OnShakeListener) : SensorEventListener {
 
@@ -37,14 +35,16 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
 
     // Collect sensor data in this interval (nanoseconds)
     private val MIN_TIME_BETWEEN_SAMPLES_NS =
-        TimeUnit.NANOSECONDS.convert(20, TimeUnit.MILLISECONDS)
+        TimeUnit.NANOSECONDS.convert(15, TimeUnit.MILLISECONDS)
 
     // Number of nanoseconds to listen for and count shakes (nanoseconds)
-    private val SHAKING_WINDOW_NS = TimeUnit.NANOSECONDS.convert(3, TimeUnit.SECONDS)
+    private val SHAKING_WINDOW_NS = TimeUnit.NANOSECONDS.convert(200, TimeUnit.MILLISECONDS)
 
-    // Required force to constitute a rage shake. Need to multiply gravity by 1.33 because a rage
-    // shake in one direction should have more force than just the magnitude of free fall.
-    private val REQUIRED_FORCE = SensorManager.GRAVITY_EARTH * 1.33f
+    // Required force to constitute a shake.
+    companion object {
+        val SHAKE_FORCE = 6f
+    }
+    private val REQUIRED_FORCE_SQUARED = SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH + SHAKE_FORCE * SHAKE_FORCE
 
     private var mAccelerationX = 0f
     private  var mAccelerationY = 0f
@@ -55,7 +55,7 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
     private var mLastShakeTimestamp: Long = 0
 
     // number of shakes required to trigger onShake()
-    private val mMinNumShakes = 1
+    private val mMinNumShakes = 6
 
     /** Reset all variables used to keep track of number of shakes recorded.  */
     private fun reset() {
@@ -68,12 +68,12 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
     /**
      * Determine if acceleration applied to sensor is large enough to count as a rage shake.
      *
-     * @param a acceleration in x, y, or z applied to the sensor
+     * @param a acceleration squared
      * @return true if the magnitude of the force exceeds the minimum required amount of force. false
      * otherwise.
      */
     private fun atLeastRequiredForce(a: Float): Boolean {
-        return abs(a) > REQUIRED_FORCE
+        return a > REQUIRED_FORCE_SQUARED
     }
 
     /**
@@ -99,13 +99,14 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
     }
 
     fun processAccelerationData(ax: Float, ay: Float, az: Float) {
-        if (atLeastRequiredForce(ax) && ax * mAccelerationX <= 0) {
+        val acceleration = ax * ax + ay * ay + az * az
+        if (atLeastRequiredForce(acceleration) && ax * mAccelerationX <= 0) {
             recordShake(mLastTimestamp)
             mAccelerationX = ax
-        } else if (atLeastRequiredForce(ay) && ay * mAccelerationY <= 0) {
+        } else if (atLeastRequiredForce(acceleration) && ay * mAccelerationY <= 0) {
             recordShake(mLastTimestamp)
             mAccelerationY = ay
-        } else if (atLeastRequiredForce(az) && az * mAccelerationZ <= 0) {
+        } else if (atLeastRequiredForce(acceleration) && az * mAccelerationZ <= 0) {
             recordShake(mLastTimestamp)
             mAccelerationZ = az
         }
@@ -113,7 +114,7 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
     }
 
     private fun maybeDispatchShake(currentTimestamp: Long) {
-        if (mNumShakes >= 6 * mMinNumShakes) {
+        if (mNumShakes >= mMinNumShakes) {
             reset()
             listener.onShake()
         }
