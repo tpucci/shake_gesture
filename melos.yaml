@@ -1,0 +1,4 @@
+name: shake_gesture
+
+packages:
+  - shake_gesture*
