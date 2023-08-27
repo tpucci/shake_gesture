@@ -2,5 +2,6 @@ name: shake_gesture_root
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=1.20.0"
 dependencies:
   melos: ^3.1.1

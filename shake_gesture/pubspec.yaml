@@ -1,9 +1,12 @@
 name: shake_gesture
 description: Widget to detect shake gestures.
-version: 0.1.0+1
+version: 0.1.1
+homepage: https://github.com/tpucci/shake_gesture
+repository: https://github.com/tpucci/shake_gesture
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=1.20.0"
 
 flutter:
   plugin:
@@ -16,12 +19,9 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  shake_gesture_android:
-    path: ../shake_gesture_android
-  shake_gesture_ios:
-    path: ../shake_gesture_ios
-  shake_gesture_platform_interface:
-    path: ../shake_gesture_platform_interface
+  shake_gesture_android: ^0.1.1
+  shake_gesture_ios: ^0.1.1
+  shake_gesture_platform_interface: ^0.1.1
 
 dev_dependencies:
   flutter_test:
