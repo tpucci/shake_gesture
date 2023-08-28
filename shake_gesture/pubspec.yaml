@@ -1,6 +1,6 @@
 name: shake_gesture
 description: shake_gesture is a Flutter package that provides a widget to detect shake gestures. It allows you to easily add shake detection to your Flutter app, which can be useful for a variety of purposes such as undoing an action, refreshing data or display a hidden screen.
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/tpucci/shake_gesture
 repository: https://github.com/tpucci/shake_gesture
 
