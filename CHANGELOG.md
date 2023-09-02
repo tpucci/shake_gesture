@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-09-02
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`shake_gesture` - `v0.1.3`](#shake_gesture---v013)
+
+---
+
+#### `shake_gesture` - `v0.1.3`
+
+ - Update pubspec descrption to fit Pub.dev specs
+
+
 ## 2023-08-28
 
 ### Changes
