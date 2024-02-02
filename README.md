@@ -4,6 +4,8 @@ This Flutter plugin detects shake gestures on Android and iOS.
 
 > This plugin has 0 dependencies 🚀
 
+> This plugin works on simulators 🤖
+
 ## Usage
 
 ```dart
