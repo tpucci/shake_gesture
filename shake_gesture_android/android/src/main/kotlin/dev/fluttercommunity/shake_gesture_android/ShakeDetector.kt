@@ -1,4 +1,4 @@
-package shake_gesture_android
+package dev.fluttercommunity.shake_gesture_android
 
 import android.content.Context
 import android.hardware.Sensor

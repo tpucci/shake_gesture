@@ -3,7 +3,7 @@ package shake_gesture_android.example
 import android.view.KeyEvent
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
-import shake_gesture_android.ShakeGesturePlugin
+import dev.fluttercommunity.shake_gesture_android.ShakeGesturePlugin
 
 class MainActivity: FlutterActivity() {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

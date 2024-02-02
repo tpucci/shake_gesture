@@ -1,4 +1,4 @@
-package shake_gesture_android
+package dev.fluttercommunity.shake_gesture_android
 
 import android.app.Activity
 import android.content.BroadcastReceiver

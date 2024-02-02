@@ -8,9 +8,9 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import shake_gesture_android.ShakeDetector
+import dev.fluttercommunity.shake_gesture_android.ShakeDetector
 
-import shake_gesture_android.ShakeGesturePlugin
+import dev.fluttercommunity.shake_gesture_android.ShakeGesturePlugin
 
 /** ShakeGestureTestHelperPlugin */
 class ShakeGestureTestHelperPlugin : FlutterPlugin, MethodCallHandler {

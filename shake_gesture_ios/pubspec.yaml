@@ -19,7 +19,8 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  shake_gesture_platform_interface: ^0.1.1
+  shake_gesture_platform_interface:
+    path: ../shake_gesture_platform_interface
 
 dev_dependencies:
   flutter_test:
