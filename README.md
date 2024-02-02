@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
       body: Center(
 
 		// Here it is 👇
+
         child: ShakeGesture(
           onShake: () {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -28,6 +29,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
+
 		// The end.
 
       ),
@@ -83,6 +85,31 @@ And call the `shake` method on your `widgetTester`:
       await widgetTester.shake();
       expect(shakeDetected, true);
     });
+```
+
+## Customize required shake gesture
+
+### iOS
+
+Unfortunatly, you can not customize the shake gesture on iOS.
+Indeed, this package depends on the Apple SDK's [`motionShake`](https://developer.apple.com/documentation/uikit/uievent/eventsubtype/motionshake).
+
+### Android
+
+By default, the required shake force is `6 Newtons` and the required number of shakes is `6`.
+This can be overriden in your `AndroidManifest.xml` file:
+
+```xml
+<manifest ...>
+    <application ...>
+        <meta-data
+            android:name="dev.fluttercommunity.shake_gesture_android.SHAKE_FORCE"
+            android:value="4" />
+        <meta-data
+            android:name="dev.fluttercommunity.shake_gesture_android.MIN_NUM_SHAKES"
+            android:value="3" />
+    </application>
+</manifest>
 ```
 
 ## Contribute

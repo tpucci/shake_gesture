@@ -1,1 +1,11 @@
-<manifest package="dev.fluttercommunity.shake_gesture_android" />
+<manifest package="dev.fluttercommunity.shake_gesture_android"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <meta-data
+            android:name="dev.fluttercommunity.shake_gesture_android.SHAKE_FORCE"
+            android:value="6" />
+        <meta-data
+            android:name="dev.fluttercommunity.shake_gesture_android.MIN_NUM_SHAKES"
+            android:value="6" />
+    </application>
+</manifest>
