@@ -1,3 +1,7 @@
+## 1.1.0
+
+ - **FEAT**: customize android required shake force.
+
 ## 1.0.1
 
  - Update a dependency to the latest release.

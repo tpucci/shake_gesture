@@ -15,6 +15,36 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`shake_gesture_android` - `v1.1.0`](#shake_gesture_android---v110)
+ - [`shake_gesture` - `v1.0.2`](#shake_gesture---v102)
+ - [`shake_gesture_test_helper` - `v1.0.2`](#shake_gesture_test_helper---v102)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `shake_gesture` - `v1.0.2`
+ - `shake_gesture_test_helper` - `v1.0.2`
+
+---
+
+#### `shake_gesture_android` - `v1.1.0`
+
+ - **FEAT**: customize android required shake force.
+
+
+## 2024-02-02
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`shake_gesture_platform_interface` - `v1.0.1`](#shake_gesture_platform_interface---v101)
  - [`shake_gesture` - `v1.0.1`](#shake_gesture---v101)
  - [`shake_gesture_android` - `v1.0.1`](#shake_gesture_android---v101)
