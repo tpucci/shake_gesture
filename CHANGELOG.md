@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-02-02
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`shake_gesture` - `v0.1.3+1`](#shake_gesture---v0131)
+ - [`shake_gesture_android` - `v0.1.1+1`](#shake_gesture_android---v0111)
+ - [`shake_gesture_ios` - `v0.1.1+1`](#shake_gesture_ios---v0111)
+ - [`shake_gesture_test_helper` - `v0.1.1+1`](#shake_gesture_test_helper---v0111)
+
+---
+
+#### `shake_gesture` - `v0.1.3+1`
+
+ - **FIX**: fix dependencies path mapping and android namespace.
+
+#### `shake_gesture_android` - `v0.1.1+1`
+
+ - **FIX**: fix dependencies path mapping and android namespace.
+
+#### `shake_gesture_ios` - `v0.1.1+1`
+
+ - **FIX**: fix dependencies path mapping and android namespace.
+
+#### `shake_gesture_test_helper` - `v0.1.1+1`
+
+ - **FIX**: fix dependencies path mapping and android namespace.
+
+
 ## 2023-09-02
 
 ### Changes

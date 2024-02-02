@@ -1,3 +1,7 @@
+## 0.1.3+1
+
+ - **FIX**: fix dependencies path mapping and android namespace.
+
 ## 0.1.3
 
  - Update pubspec descrption to fit Pub.dev specs
