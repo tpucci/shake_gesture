@@ -15,6 +15,38 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`shake_gesture_platform_interface` - `v1.0.1`](#shake_gesture_platform_interface---v101)
+ - [`shake_gesture` - `v1.0.1`](#shake_gesture---v101)
+ - [`shake_gesture_android` - `v1.0.1`](#shake_gesture_android---v101)
+ - [`shake_gesture_ios` - `v1.0.1`](#shake_gesture_ios---v101)
+ - [`shake_gesture_test_helper` - `v1.0.1`](#shake_gesture_test_helper---v101)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `shake_gesture` - `v1.0.1`
+ - `shake_gesture_android` - `v1.0.1`
+ - `shake_gesture_ios` - `v1.0.1`
+ - `shake_gesture_test_helper` - `v1.0.1`
+
+---
+
+#### `shake_gesture_platform_interface` - `v1.0.1`
+
+
+## 2024-02-02
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`shake_gesture` - `v0.1.3+1`](#shake_gesture---v0131)
  - [`shake_gesture_android` - `v0.1.1+1`](#shake_gesture_android---v0111)
  - [`shake_gesture_ios` - `v0.1.1+1`](#shake_gesture_ios---v0111)

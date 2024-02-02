@@ -1,6 +1,6 @@
 name: shake_gesture_android
 description: Android implementation of the shake_gesture plugin
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/tpucci/shake_gesture
 repository: https://github.com/tpucci/shake_gesture
 
@@ -22,7 +22,7 @@ dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  shake_gesture_platform_interface: 1.0.0
+  shake_gesture_platform_interface: 1.0.1
 
 dev_dependencies:
   flutter_test:
