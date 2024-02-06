@@ -49,6 +49,9 @@ This package works in the iOS simulator.
 To simulate a shake event in Android emulator, either play with the Sensor Manager, or add the following piece of code to your Activity:
 
 ```kotlin
+import android.view.KeyEvent
+import dev.fluttercommunity.shake_gesture_android.ShakeGesturePlugin
+
 class MainActivity: FlutterActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
