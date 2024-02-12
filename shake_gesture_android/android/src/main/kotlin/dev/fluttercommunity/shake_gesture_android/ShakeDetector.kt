@@ -42,7 +42,7 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
     private val SHAKING_WINDOW_NS = TimeUnit.NANOSECONDS.convert(200, TimeUnit.MILLISECONDS)
 
     // Required force to constitute a shake.
-    private val SHAKE_FORCE = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getFloat("dev.fluttercommunity.shake_gesture_android.SHAKE_FORCE")
+    private val SHAKE_FORCE = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getFloat("dev.fluttercommunity.shake_gesture_android.SHAKE_FORCE",  6f)
     private val REQUIRED_FORCE_SQUARED = SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH + SHAKE_FORCE * SHAKE_FORCE
 
     private var mAccelerationX = 0f
@@ -54,7 +54,7 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
     private var mLastShakeTimestamp: Long = 0
 
     // number of shakes required to trigger onShake()
-    private val mMinNumShakes = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getInt("dev.fluttercommunity.shake_gesture_android.MIN_NUM_SHAKES")
+    private val mMinNumShakes = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getInt("dev.fluttercommunity.shake_gesture_android.MIN_NUM_SHAKES", 6)
 
     /** Reset all variables used to keep track of number of shakes recorded.  */
     private fun reset() {
