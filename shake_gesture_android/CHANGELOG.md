@@ -1,3 +1,7 @@
+## 1.1.1
+
+ - **FIX**(android): fix customizing shake const.
+
 ## 1.1.0
 
  - **FEAT**: customize android required shake force.

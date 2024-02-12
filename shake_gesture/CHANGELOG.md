@@ -1,3 +1,7 @@
+## 1.0.3
+
+ - **FIX**(android): fix customizing shake const.
+
 ## 1.0.2
 
  - Update a dependency to the latest release.

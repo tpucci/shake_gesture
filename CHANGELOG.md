@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-02-12
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`shake_gesture` - `v1.0.3`](#shake_gesture---v103)
+ - [`shake_gesture_android` - `v1.1.1`](#shake_gesture_android---v111)
+ - [`shake_gesture_test_helper` - `v1.0.3`](#shake_gesture_test_helper---v103)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `shake_gesture_test_helper` - `v1.0.3`
+
+---
+
+#### `shake_gesture` - `v1.0.3`
+
+ - **FIX**(android): fix customizing shake const.
+
+#### `shake_gesture_android` - `v1.1.1`
+
+ - **FIX**(android): fix customizing shake const.
+
+
 ## 2024-02-02
 
 ### Changes

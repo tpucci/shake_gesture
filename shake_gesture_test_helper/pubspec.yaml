@@ -1,6 +1,6 @@
 name: shake_gesture_test_helper
 description: Test helpers for the shake_gesture plugin.
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/tpucci/shake_gesture
 repository: https://github.com/tpucci/shake_gesture
 
@@ -16,7 +16,7 @@ dependencies:
   integration_test:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
-  shake_gesture_android: 1.1.0
+  shake_gesture_android: 1.1.1
   shake_gesture_ios: 1.0.1
   shake_gesture_platform_interface: 1.0.1
 
