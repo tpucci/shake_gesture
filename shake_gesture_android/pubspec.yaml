@@ -20,8 +20,6 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  integration_test:
-    sdk: flutter
   shake_gesture_platform_interface: 1.0.1
 
 dev_dependencies:
