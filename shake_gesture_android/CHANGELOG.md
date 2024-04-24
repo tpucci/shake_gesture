@@ -1,3 +1,7 @@
+## 1.1.2
+
+ - Remove test dep
+
 ## 1.1.1
 
  - **FIX**(android): fix customizing shake const.
