@@ -1,3 +1,7 @@
+## 1.0.7
+
+ - **DOCS**: symlink READMEs.
+
 ## 1.0.6
 
  - Update a dependency to the latest release.

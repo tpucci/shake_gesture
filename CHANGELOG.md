@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-10-07
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`shake_gesture` - `v1.0.7`](#shake_gesture---v107)
+
+---
+
+#### `shake_gesture` - `v1.0.7`
+
+ - **DOCS**: symlink READMEs.
+
+
 ## 2024-09-20
 
 ### Changes
