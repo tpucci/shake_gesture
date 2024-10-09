@@ -7,6 +7,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import java.util.concurrent.TimeUnit
+import android.util.Log
 
 class ShakeDetector(context: Context, private val listener: OnShakeListener) : SensorEventListener {
 
@@ -42,7 +43,17 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
     private val SHAKING_WINDOW_NS = TimeUnit.NANOSECONDS.convert(200, TimeUnit.MILLISECONDS)
 
     // Required force to constitute a shake.
-    private val SHAKE_FORCE = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getFloat("dev.fluttercommunity.shake_gesture_android.SHAKE_FORCE",  6f)
+    val customShakeForce = context.packageManager.getApplicationInfo(
+        context.packageName,
+        PackageManager.GET_META_DATA
+    ).metaData.get("dev.fluttercommunity.shake_gesture_android.SHAKE_FORCE")
+
+    val SHAKE_FORCE: Float = when (customShakeForce) {
+        is Int -> customShakeForce.toFloat()
+        is Float -> customShakeForce
+        else -> 6f
+    }
+
     private val REQUIRED_FORCE_SQUARED = SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH + SHAKE_FORCE * SHAKE_FORCE
 
     private var mAccelerationX = 0f
@@ -55,6 +66,11 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
 
     // number of shakes required to trigger onShake()
     private val mMinNumShakes = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData.getInt("dev.fluttercommunity.shake_gesture_android.MIN_NUM_SHAKES", 6)
+
+    init {
+        Log.v("ShakeDetector", "Required shake force is $SHAKE_FORCE")
+        Log.v("ShakeDetector", "Minimum number of shakes is $mMinNumShakes")
+    }
 
     /** Reset all variables used to keep track of number of shakes recorded.  */
     private fun reset() {
