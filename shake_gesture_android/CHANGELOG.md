@@ -1,3 +1,7 @@
+## 1.1.4
+
+ - **FIX**: fix custom shake force.
+
 ## 1.1.3
 
 ## 1.1.2
