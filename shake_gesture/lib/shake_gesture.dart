@@ -18,6 +18,16 @@ class ShakeGesture extends StatefulWidget {
 
   @override
   State<ShakeGesture> createState() => _ShakeGestureState();
+
+  /// Registers a callback that will be called when a shake gesture is detected.
+  static void registerCallback({required VoidCallback onShake}) {
+    _platform.registerCallback(onShake: onShake);
+  }
+
+  /// Unregisters a callback that was registered with [registerCallback].
+  static void unregisterCallback({required VoidCallback onShake}) {
+    _platform.unregisterCallback(onShake: onShake);
+  }
 }
 
 class _ShakeGestureState extends State<ShakeGesture> {

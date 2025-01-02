@@ -8,6 +8,23 @@ This Flutter plugin detects shake gestures on Android and iOS.
 
 ## Usage
 
+### Imperatively
+
+```dart
+void main() {
+  void myCallback() {}
+
+  // Register the callback
+  ShakeGesture.registerCallback(onShake: myCallback)
+
+  // In dispose functions, don't forget to clean up
+  ShakeGesture.unregisterCallback(onShake: myCallback)
+}
+
+```
+
+### Widget
+
 ```dart
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
