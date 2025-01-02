@@ -1,3 +1,7 @@
+## 1.1.0
+
+ - **FEAT**: use imperatively.
+
 ## 1.0.8
 
  - Update a dependency to the latest release.
