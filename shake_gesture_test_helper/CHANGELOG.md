@@ -1,3 +1,7 @@
+## 1.1.0
+
+ - **FEAT**: add namespace to shake_gesture_test_helper Android project.
+
 ## 1.0.7
 
  - Update a dependency to the latest release.

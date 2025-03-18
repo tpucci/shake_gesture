@@ -1,3 +1,8 @@
+## 1.2.0
+
+ - **FEAT**: use imperatively.
+ - **DOCS**: symlink READMEs.
+
 ## 1.1.0
 
  - **FEAT**: use imperatively.

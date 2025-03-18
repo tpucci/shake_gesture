@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-03-18
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`shake_gesture` - `v1.2.0`](#shake_gesture---v120)
+ - [`shake_gesture_android` - `v1.1.5`](#shake_gesture_android---v115)
+ - [`shake_gesture_test_helper` - `v1.1.0`](#shake_gesture_test_helper---v110)
+
+---
+
+#### `shake_gesture` - `v1.2.0`
+
+ - **FEAT**: use imperatively.
+ - **DOCS**: symlink READMEs.
+
+#### `shake_gesture_android` - `v1.1.5`
+
+ - **FIX**: fix custom shake force.
+
+#### `shake_gesture_test_helper` - `v1.1.0`
+
+ - **FEAT**: add namespace to shake_gesture_test_helper Android project.
+
+
 ## 2025-01-02
 
 ### Changes
