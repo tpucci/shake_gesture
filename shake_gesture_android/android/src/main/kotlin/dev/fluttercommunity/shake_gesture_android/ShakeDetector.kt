@@ -56,9 +56,20 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
 
     private val REQUIRED_FORCE_SQUARED = SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH + SHAKE_FORCE * SHAKE_FORCE
 
+    // Current acceleration values
     private var mAccelerationX = 0f
-    private  var mAccelerationY = 0f
-    private  var mAccelerationZ = 0f
+    private var mAccelerationY = 0f
+    private var mAccelerationZ = 0f
+
+    // Previous acceleration values for direction change detection
+    private var mPrevAccelerationX = 0f
+    private var mPrevAccelerationY = 0f
+    private var mPrevAccelerationZ = 0f
+
+    // Track the last direction of movement for each axis
+    private var mLastDirectionX = 0 // -1, 0, 1 for negative, none, positive
+    private var mLastDirectionY = 0
+    private var mLastDirectionZ = 0
 
     private var mLastTimestamp: Long = 0
     private var mNumShakes = 0
@@ -78,6 +89,12 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
         mAccelerationX = 0f
         mAccelerationY = 0f
         mAccelerationZ = 0f
+        mPrevAccelerationX = 0f
+        mPrevAccelerationY = 0f
+        mPrevAccelerationZ = 0f
+        mLastDirectionX = 0
+        mLastDirectionY = 0
+        mLastDirectionZ = 0
     }
 
     /**
@@ -101,6 +118,40 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
         mNumShakes++
     }
 
+    /**
+     * Determine the direction of movement for a given acceleration value
+     *
+     * @param acceleration current acceleration value
+     * @param threshold minimum threshold to consider as movement
+     * @return -1 for negative direction, 1 for positive direction, 0 for no significant movement
+     */
+    private fun getDirection(acceleration: Float, threshold: Float = 1.0f): Int {
+        return when {
+            acceleration > threshold -> 1
+            acceleration < -threshold -> -1
+            else -> 0
+        }
+    }
+
+    /**
+     * Check if there's a direction change between previous and current acceleration
+     * A direction change occurs when the sign changes and both values have significant magnitude
+     *
+     * @param current current acceleration value
+     * @param previous previous acceleration value
+     * @param lastDirection the last recorded direction for this axis
+     * @return true if there's a valid direction change
+     */
+    private fun hasDirectionChange(current: Float, previous: Float, lastDirection: Int): Boolean {
+        val currentDirection = getDirection(current)
+
+        // Only count as direction change if:
+        // 1. Current direction is non-zero (significant movement)
+        // 2. Current direction is opposite to last recorded direction
+        // 3. There was a previous direction recorded
+        return currentDirection != 0 && lastDirection != 0 && currentDirection == -lastDirection
+    }
+
     override fun onSensorChanged(sensorEvent: SensorEvent) {
         if (sensorEvent.timestamp - mLastTimestamp < MIN_TIME_BETWEEN_SAMPLES_NS) {
             return
@@ -115,16 +166,49 @@ class ShakeDetector(context: Context, private val listener: OnShakeListener) : S
 
     fun processAccelerationData(ax: Float, ay: Float, az: Float) {
         val acceleration = ax * ax + ay * ay + az * az
-        if (atLeastRequiredForce(acceleration) && ax * mAccelerationX <= 0) {
-            recordShake(mLastTimestamp)
-            mAccelerationX = ax
-        } else if (atLeastRequiredForce(acceleration) && ay * mAccelerationY <= 0) {
-            recordShake(mLastTimestamp)
-            mAccelerationY = ay
-        } else if (atLeastRequiredForce(acceleration) && az * mAccelerationZ <= 0) {
-            recordShake(mLastTimestamp)
-            mAccelerationZ = az
+
+        // Only process if we have enough force
+        if (atLeastRequiredForce(acceleration)) {
+            var shakeDetected = false
+
+            // Check X-axis for direction change
+            if (hasDirectionChange(ax, mPrevAccelerationX, mLastDirectionX)) {
+                recordShake(mLastTimestamp)
+                shakeDetected = true
+            }
+
+            // Check Y-axis for direction change
+            if (hasDirectionChange(ay, mPrevAccelerationY, mLastDirectionY)) {
+                recordShake(mLastTimestamp)
+                shakeDetected = true
+            }
+
+            // Check Z-axis for direction change
+            if (hasDirectionChange(az, mPrevAccelerationZ, mLastDirectionZ)) {
+                recordShake(mLastTimestamp)
+                shakeDetected = true
+            }
+
+            // Update direction tracking only when we have significant movement
+            val currentDirectionX = getDirection(ax)
+            val currentDirectionY = getDirection(ay)
+            val currentDirectionZ = getDirection(az)
+
+            if (currentDirectionX != 0) mLastDirectionX = currentDirectionX
+            if (currentDirectionY != 0) mLastDirectionY = currentDirectionY
+            if (currentDirectionZ != 0) mLastDirectionZ = currentDirectionZ
         }
+
+        // Update previous values for next comparison
+        mPrevAccelerationX = mAccelerationX
+        mPrevAccelerationY = mAccelerationY
+        mPrevAccelerationZ = mAccelerationZ
+
+        // Update current values
+        mAccelerationX = ax
+        mAccelerationY = ay
+        mAccelerationZ = az
+
         maybeDispatchShake(mLastTimestamp)
     }
 
