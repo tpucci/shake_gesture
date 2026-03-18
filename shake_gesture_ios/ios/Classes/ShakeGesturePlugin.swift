@@ -19,13 +19,18 @@ public class ShakeGesturePlugin: NSObject, FlutterPlugin {
     }
 
     @objc func handleEvent(_ notification: Notification) {
-        if let eventData = notification.userInfo?["window"] as? UIWindow {
-            if let appDelegate = UIApplication.shared.delegate, let window = appDelegate.window {
-                if (window == eventData) {
-                    DispatchQueue.main.async {
-                        self.channel.invokeMethod("onShake", arguments: nil)
-                    }
-                }
+        guard let eventWindow = notification.userInfo?["window"] as? UIWindow else { return }
+        let appWindows: [UIWindow]
+        if #available(iOS 13.0, *) {
+            appWindows = UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+        } else {
+            appWindows = UIApplication.shared.windows
+        }
+        if appWindows.contains(where: { $0 === eventWindow }) {
+            DispatchQueue.main.async {
+                self.channel.invokeMethod("onShake", arguments: nil)
             }
         }
     }
