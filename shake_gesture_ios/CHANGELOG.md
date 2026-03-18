@@ -1,3 +1,8 @@
+## 1.1.0
+
+ - **FIX**(ios): support UISceneDelegate window detection for shake events.
+ - **FEAT**: support swift packages.
+
 ## 1.0.2
 
  - Add iOS Privacy manifest

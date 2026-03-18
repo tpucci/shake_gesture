@@ -1,3 +1,7 @@
+## 2.1.0
+
+ - **FEAT**: support swift packages.
+
 ## 2.0.0
 
 > Note: This release has breaking changes.
