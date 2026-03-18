@@ -19,7 +19,16 @@ public class ShakeGestureTestHelperPlugin: NSObject, FlutterPlugin {
   }
     
     func shake() {
-        NotificationCenter.default.post(name: Notification.Name("ShakeMotionEventNotification"), object: nil, userInfo: ["window": UIApplication.shared.delegate?.window! ?? self])
+        let appWindows: [UIWindow]
+        if #available(iOS 13.0, *) {
+            appWindows = UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+        } else {
+            appWindows = UIApplication.shared.windows
+        }
+        let window = appWindows.first ?? UIWindow()
+        NotificationCenter.default.post(name: Notification.Name("ShakeMotionEventNotification"), object: nil, userInfo: ["window": window])
     }
 }
 
