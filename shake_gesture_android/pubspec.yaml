@@ -1,6 +1,6 @@
 name: shake_gesture_android
 description: Android implementation of the shake_gesture plugin
-version: 2.0.0
+version: 2.1.0
 homepage: https://github.com/tpucci/shake_gesture
 repository: https://github.com/tpucci/shake_gesture
 

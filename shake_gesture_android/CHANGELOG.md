@@ -1,3 +1,8 @@
+## 2.1.0
+
+ - **FEAT**(android): migrate to built-in Kotlin (#29).
+ - **FEAT**: update the minimum supported SDK version to Flutter 3.44/Dart 3.12.
+
 ## 2.0.0
 
 > Note: This release has breaking changes.

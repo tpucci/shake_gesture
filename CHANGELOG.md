@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-09-28
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`shake_gesture` - `v2.2.0`](#shake_gesture---v220)
+ - [`shake_gesture_android` - `v2.1.0`](#shake_gesture_android---v210)
+ - [`shake_gesture_test_helper` - `v2.2.0`](#shake_gesture_test_helper---v220)
+
+---
+
+#### `shake_gesture` - `v2.2.0`
+
+ - **FEAT**(android): migrate to built-in Kotlin (#29).
+ - **FEAT**: update the minimum supported SDK version to Flutter 3.44/Dart 3.12.
+
+#### `shake_gesture_android` - `v2.1.0`
+
+ - **FEAT**(android): migrate to built-in Kotlin (#29).
+ - **FEAT**: update the minimum supported SDK version to Flutter 3.44/Dart 3.12.
+
+#### `shake_gesture_test_helper` - `v2.2.0`
+
+ - **FEAT**(android): migrate to built-in Kotlin (#29).
+ - **FEAT**: update the minimum supported SDK version to Flutter 3.44/Dart 3.12.
+
+
 ## 2026-03-18
 
 ### Changes
