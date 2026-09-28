@@ -5,8 +5,8 @@ homepage: https://github.com/tpucci/shake_gesture
 repository: https://github.com/tpucci/shake_gesture
 
 environment:
-  sdk: ">=3.6.0 <4.0.0"
-  flutter: ">=1.20.0"
+  sdk: ^3.12.0
+  flutter: ">=3.44.0"
 
 resolution: workspace
 
